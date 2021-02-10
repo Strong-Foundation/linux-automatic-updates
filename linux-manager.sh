@@ -58,9 +58,9 @@ function start-the-process() {
   elif { [ "$DISTRO" == "arch" ] || [ "$DISTRO" == "manjaro" ]; }; then
     pacman -Syu --noconfirm
   elif [ "$DISTRO" == "alpine" ]; then
-    # 
+    echo "something here"
   elif [ "$DISTRO" == "freebsd" ]; then
-    #
+    echo "something here"
   fi
 }
 
