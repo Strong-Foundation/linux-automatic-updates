@@ -56,11 +56,11 @@ function start-the-process() {
   elif { [ "$DISTRO" == "fedora" ] || [ "$DISTRO" == "centos" ] || [ "$DISTRO" == "rhel" ]; }; then
     yum update -y && yum upgrade -y && yum autoremove -y
   elif { [ "$DISTRO" == "arch" ] || [ "$DISTRO" == "manjaro" ]; }; then
-    pacman -Syu --noconfirm
+    pacman -Syu
   elif [ "$DISTRO" == "alpine" ]; then
-    echo "something here"
+    apk update && apk upgrade
   elif [ "$DISTRO" == "freebsd" ]; then
-    echo "something here"
+    pkg update && pkh upgrade
   fi
 }
 
