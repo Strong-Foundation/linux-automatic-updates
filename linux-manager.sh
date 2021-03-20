@@ -26,17 +26,17 @@ dist-check
 # Pre-Checks system requirements
 function installing-system-requirements() {
   if { [ "${DISTRO}" == "ubuntu" ] || [ "${DISTRO}" == "debian" ] || [ "${DISTRO}" == "raspbian" ] || [ "${DISTRO}" == "pop" ] || [ "${DISTRO}" == "kali" ] || [ "${DISTRO}" == "linuxmint" ] || [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ] || [ "${DISTRO}" == "arch" ] || [ "${DISTRO}" == "manjaro" ] || [ "${DISTRO}" == "alpine" ] || [ "${DISTRO}" == "freebsd" ]; }; then
-    if [ ! -x "$(command -v curl)" ]; then
+    if { [ ! -x "$(command -v curl)" ] || [ ! -x "$(command -v ntpd)" ]; }; then
       if { [ "${DISTRO}" == "ubuntu" ] || [ "${DISTRO}" == "debian" ] || [ "${DISTRO}" == "raspbian" ] || [ "${DISTRO}" == "pop" ] || [ "${DISTRO}" == "kali" ] || [ "${DISTRO}" == "linuxmint" ]; }; then
-        apt-get update && apt-get install curl -y
+        apt-get update && apt-get install curl ntp -y
       elif { [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ]; }; then
-        yum update -y && yum install curl -y
+        yum update -y && yum install curl ntp -y
       elif { [ "${DISTRO}" == "arch" ] || [ "${DISTRO}" == "manjaro" ]; }; then
-        pacman -Syu && pacman -Syu --noconfirm curl
+        pacman -Syu && pacman -Syu --noconfirm curl ntp
       elif [ "${DISTRO}" == "alpine" ]; then
-        apk update && yum install curl -y
+        apk update && yum install curl ntp -y
       elif [ "${DISTRO}" == "freebsd" ]; then
-        pkg update && pkg install curl
+        pkg update && pkg install curl ntp
       fi
     fi
   else
