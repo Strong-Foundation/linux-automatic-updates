@@ -61,7 +61,7 @@ function start-the-process() {
   elif [ "${DISTRO}" == "alpine" ]; then
     apk update && apk upgrade
   elif [ "${DISTRO}" == "freebsd" ]; then
-    pkg update && pkh upgrade
+    pkg update && pkg upgrade
   fi
 }
 
