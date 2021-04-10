@@ -1,40 +1,6 @@
 ### Linux Manager
 
 ---
-### Features
-- 
-- 
-- 
-- 
-
----
-### Q&A
-
-How
-- 
-- 
-- 
-- 
-
-Which
-- 
-- 
-- 
--
-
-Is
-- 
-- 
-- 
--
-
-How 
-- 
-- 
-- 
--
-
----
 ### Author
 * Name: Prajwal Koirala
 * Website: [prajwalkoirala.com](https://www.prajwalkoirala.com)
