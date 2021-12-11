@@ -52,7 +52,8 @@ installing-system-requirements
 function start-the-process() {
   # cat /dev/null > ~/.bash_history && history -c && exit
   if { [ "${DISTRO}" == "ubuntu" ] || [ "${DISTRO}" == "debian" ] || [ "${DISTRO}" == "raspbian" ] || [ "${DISTRO}" == "pop" ] || [ "${DISTRO}" == "kali" ] || [ "${DISTRO}" == "linuxmint" ]; }; then    
-    apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get install build-essential unattended-upgrades apt-listchanges -y && dpkg-reconfigure unattended-upgrades && apt-get clean -y && apt-get autoremove -y && apt-get autoclean -y && apt-get install -f -y
+    # echo "deb http://ftp.de.debian.org/debian sid main" >>/etc/apt/sources.list
+    apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get install build-essential unattended-upgrades apt-listchanges apt-transport-https -y && dpkg-reconfigure unattended-upgrades && apt-get clean -y && apt-get autoremove -y && apt-get autoclean -y && apt-get install -f -y
     # apt-get install gpg git golang-go -y
   elif { [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ]; }; then
     yum update -y && yum upgrade -y && yum autoremove -y
