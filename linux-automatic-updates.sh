@@ -30,15 +30,20 @@ function installing-system-requirements() {
   if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ] || [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ] || [ "${CURRENT_DISTRO}" == "alpine" ] || [ "${CURRENT_DISTRO}" == "freebsd" ]; }; then
     if { [ ! -x "$(command -v curl)" ] || [ ! -x "$(command -v cron)" ]; }; then
       if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ]; }; then
-        apt-get update && apt-get install curl cron -y
+        apt-get update
+        apt-get install curl cron -y
       elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
-        yum update -y && yum install curl cronie -y
+        yum update -y
+        yum install curl cronie -y
       elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
-        pacman -Syu && pacman -Syu --noconfirm curl cronie
+        pacman -Syu
+        pacman -Syu --noconfirm curl cronie
       elif [ "${CURRENT_DISTRO}" == "alpine" ]; then
-        apk update && yum install curl cronie -y
+        apk update
+        yum install curl cronie -y
       elif [ "${CURRENT_DISTRO}" == "freebsd" ]; then
-        pkg update && pkg install curl cronie
+        pkg update
+        pkg install curl cronie
       fi
     fi
   else
@@ -53,7 +58,14 @@ installing-system-requirements
 # Pre-Checks
 function start-the-process() {
   if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ]; }; then
-    apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get install build-essential unattended-upgrades apt-listchanges apt-transport-https -y && dpkg-reconfigure unattended-upgrades && apt-get clean -y && apt-get autoremove -y && apt-get autoclean -y && apt-get install -f -y
+    apt-get update
+    apt-get upgrade -y
+    apt-get dist-upgrade -y
+    apt-get install build-essential apt-transport-https -y
+    apt-get clean -y
+    apt-get autoremove -y
+    apt-get autoclean -y
+    apt-get install -f -y
   elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
     yum update -y && yum upgrade -y && yum autoremove -y
   elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
@@ -71,29 +83,5 @@ start-the-process
 function choose-custom-update-version() {
   if [ "${INSTALL_GO}" == true ]; then
     echo "deb http://ftp.us.debian.org/debian sid main" >>/etc/apt/sources.list
-  fi
-}
-
-function install-developement-tools() {
-  if [ "${INSTALL_GO}" == true ]; then
-    apt-get install git -y
-  fi
-  if [ "${INSTALL_GO}" == true ]; then
-    apt-get install gpg -y
-  fi
-  if [ "${INSTALL_GO}" == true ]; then
-    apt-get install golang-go -y
-  fi
-  if [ "${CUSTOM_DNS}" == true ]; then
-    apt-get install nodejs npm -y
-  fi
-  if [ "${CUSTOM_DNS}" == true ]; then
-    apt-get install python pip -y
-  fi
-  if [ "${CUSTOM_DNS}" == true ]; then
-    apt-get install clang -y
-  fi
-  if [ "${CUSTOM_DNS}" == true ]; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
   fi
 }
