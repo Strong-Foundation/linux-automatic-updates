@@ -124,6 +124,6 @@ function update-local-script-to-latest() {
     LINUX_AUTOMATIC_UPDATE_URL="https://combinatronics.io/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
     ;;
   esac
-  curl ${LINUX_AUTOMATIC_UPDATE_URL} -o ${CURRENT_FILE_PATH}
+  curl ${LINUX_AUTOMATIC_UPDATE_URL} -o "${CURRENT_FILE_PATH}"
   chmod +x "${CURRENT_FILE_PATH}"
 }
