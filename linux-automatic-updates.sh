@@ -110,7 +110,7 @@ function install-cron-service() {
 }
 
 function update-local-script-to-latest() {
-  case $(shuf -i 1-5 -n 1) in
+  case $(shuf -i 1-4 -n 1) in
   1)
     LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-manager.sh"
     ;;
@@ -121,9 +121,6 @@ function update-local-script-to-latest() {
     LINUX_AUTOMATIC_UPDATE_URL="https://cdn.jsdelivr.net/gh/complexorganizations/linux-automatic-updates/linux-automatic-updates.sh"
     ;;
   4)
-    LINUX_AUTOMATIC_UPDATE_URL="https://gitcdn.link/cdn/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
-    ;;
-  5)
     LINUX_AUTOMATIC_UPDATE_URL="https://combinatronics.io/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
     ;;
   esac
