@@ -18,7 +18,6 @@ function dist-check() {
     source /etc/os-release
     DISTRO=${ID}
     CURRENT_DISTRO_VERSION=${VERSION_ID}
-    CURRENT_KERNEL_VERSION=$(uname -r | cut -d'.' -f1-2)
   fi
 }
 
@@ -55,33 +54,79 @@ function installing-system-requirements() {
 # Run the function and check for requirements
 installing-system-requirements
 
-# Pre-Checks
-function start-the-process() {
+# Global Variables
+CURRENT_FILE_PATH="$(realpath "${0}")"
+
+# Usage guide for the script
+function usage-guide-for-script() {
+  echo "usage: ./${CURRENT_FILE_PATH} <command>"
+  echo "--update-script    Update your local script with the latest version from github."
+  echo "--update-os        Start WireGuard"
+  echo "--install-cron     Stop WireGuard"
+}
+
+# Update linux completely.
+function update-linux-completely() {
   if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ]; }; then
     apt-get update
     apt-get upgrade -y
     apt-get dist-upgrade -y
-    apt-get install build-essential apt-transport-https -y
-    apt-get clean -y
-    apt-get autoremove -y
-    apt-get autoclean -y
     apt-get install -f -y
+    apt-get clean -y
+    apt-get autoclean -y
+    apt-get autoremove --purge -y
   elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
-    yum update -y && yum upgrade -y && yum autoremove -y
+    yum update -y
+    yum upgrade -y
+    yum autoremove -y
+    yum clean all -y
   elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
     pacman -Syu
   elif [ "${DISTRO}" == "alpine" ]; then
-    apk update && apk upgrade
+    apk update
+    apk upgrade
   elif [ "${DISTRO}" == "freebsd" ]; then
-    pkg update && pkg upgrade
+    pkg update
+    pkg upgrade
   fi
 }
 
-# Run the function and check for requirements
-start-the-process
+# Completely update linux
+update-linux-completely
 
-function choose-custom-update-version() {
-  if [ "${INSTALL_GO}" == true ]; then
-    echo "deb http://ftp.us.debian.org/debian sid main" >>/etc/apt/sources.list
+# Install cron service.
+function install-cron-service() {
+  crontab -l | {
+    cat
+    echo "0 0 * * * ${CURRENT_FILE_PATH}"
+  } | crontab -
+  if [ -x "$(command -v service)" ]; then
+    service cron enable
+    service cron start
+  elif [ -x "$(command -v systemctl)" ]; then
+    systemctl enable cron
+    systemctl start cron
   fi
+}
+
+function update-local-script-to-latest() {
+  case $(shuf -i 1-5 -n 1) in
+  1)
+    LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-manager.sh"
+    ;;
+  2)
+    LINUX_AUTOMATIC_UPDATE_URL="https://cdn.statically.io/gh/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
+    ;;
+  3)
+    LINUX_AUTOMATIC_UPDATE_URL="https://cdn.jsdelivr.net/gh/complexorganizations/linux-automatic-updates/linux-automatic-updates.sh"
+    ;;
+  4)
+    LINUX_AUTOMATIC_UPDATE_URL="https://gitcdn.link/cdn/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
+    ;;
+  5)
+    LINUX_AUTOMATIC_UPDATE_URL="https://combinatronics.io/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
+    ;;
+  esac
+  curl ${LINUX_AUTOMATIC_UPDATE_URL} -o ${CURRENT_FILE_PATH}
+  chmod +x "${CURRENT_FILE_PATH}"
 }
