@@ -1,6 +1,6 @@
 ### Linux Automatic Updates
 
-Update linux automatically
+Automatically update linux.
 
 ---
 ### Author
