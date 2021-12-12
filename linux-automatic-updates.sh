@@ -96,9 +96,10 @@ update-linux-completely
 
 # Install cron service.
 function install-cron-service() {
+if [ "${INSTALL_CRON_SERVICE}" == true ]; then
   crontab -l | {
     cat
-    echo "0 0 * * * ${CURRENT_FILE_PATH}"
+    echo "$(shuf -i 0-59 -n 1) $(shuf -i 0-23 -n 1) * * * ${CURRENT_FILE_PATH}"
   } | crontab -
   if [ -x "$(command -v service)" ]; then
     service cron enable
@@ -107,9 +108,11 @@ function install-cron-service() {
     systemctl enable cron
     systemctl start cron
   fi
+fi
 }
 
 function update-local-script-to-latest() {
+  if [ "${UPDATE_LOCAL_SCRIPT}" == true ]; then
   case $(shuf -i 1-4 -n 1) in
   1)
     LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-manager.sh"
@@ -126,4 +129,5 @@ function update-local-script-to-latest() {
   esac
   curl ${LINUX_AUTOMATIC_UPDATE_URL} -o "${CURRENT_FILE_PATH}"
   chmod +x "${CURRENT_FILE_PATH}"
+  fi
 }
