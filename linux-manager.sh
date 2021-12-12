@@ -54,7 +54,7 @@ function start-the-process() {
   if { [ "${DISTRO}" == "ubuntu" ] || [ "${DISTRO}" == "debian" ] || [ "${DISTRO}" == "raspbian" ] || [ "${DISTRO}" == "pop" ] || [ "${DISTRO}" == "kali" ] || [ "${DISTRO}" == "linuxmint" ]; }; then    
     # echo "deb http://ftp.us.debian.org/debian sid main" >>/etc/apt/sources.list
     apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get install build-essential unattended-upgrades apt-listchanges apt-transport-https -y && dpkg-reconfigure unattended-upgrades && apt-get clean -y && apt-get autoremove -y && apt-get autoclean -y && apt-get install -f -y
-    # apt-get install gpg git golang-go -y
+    # apt-get install gpg git golang-go nodejs npm-y
   elif { [ "${DISTRO}" == "fedora" ] || [ "${DISTRO}" == "centos" ] || [ "${DISTRO}" == "rhel" ]; }; then
     yum update -y && yum upgrade -y && yum autoremove -y
   elif { [ "${DISTRO}" == "arch" ] || [ "${DISTRO}" == "manjaro" ]; }; then
