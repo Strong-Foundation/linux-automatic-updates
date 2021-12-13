@@ -104,38 +104,38 @@ update-linux-completely
 
 # Install cron service.
 function install-cron-service() {
-if [ "${INSTALL_CRON_SERVICE}" == true ]; then
-  crontab -l | {
-    cat
-    echo "$(shuf -i 0-59 -n 1) $(shuf -i 0-23 -n 1) * * * ${CURRENT_FILE_PATH}"
-  } | crontab -
-  if [ -x "$(command -v service)" ]; then
-    service cron enable
-    service cron start
-  elif [ -x "$(command -v systemctl)" ]; then
-    systemctl enable cron
-    systemctl start cron
+  if [ "${INSTALL_CRON_SERVICE}" == true ]; then
+    crontab -l | {
+      cat
+      echo "$(shuf -i 0-59 -n 1) $(shuf -i 0-23 -n 1) * * * ${CURRENT_FILE_PATH}"
+    } | crontab -
+    if [ -x "$(command -v service)" ]; then
+      service cron enable
+      service cron start
+    elif [ -x "$(command -v systemctl)" ]; then
+      systemctl enable cron
+      systemctl start cron
+    fi
   fi
-fi
 }
 
 function update-local-script-to-latest() {
   if [ "${UPDATE_LOCAL_SCRIPT}" == true ]; then
-  case $(shuf -i 1-4 -n 1) in
-  1)
-    LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-manager.sh"
-    ;;
-  2)
-    LINUX_AUTOMATIC_UPDATE_URL="https://cdn.statically.io/gh/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
-    ;;
-  3)
-    LINUX_AUTOMATIC_UPDATE_URL="https://cdn.jsdelivr.net/gh/complexorganizations/linux-automatic-updates/linux-automatic-updates.sh"
-    ;;
-  4)
-    LINUX_AUTOMATIC_UPDATE_URL="https://combinatronics.io/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
-    ;;
-  esac
-  curl ${LINUX_AUTOMATIC_UPDATE_URL} -o "${CURRENT_FILE_PATH}"
-  chmod +x "${CURRENT_FILE_PATH}"
+    case $(shuf -i 1-4 -n 1) in
+    1)
+      LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-manager.sh"
+      ;;
+    2)
+      LINUX_AUTOMATIC_UPDATE_URL="https://cdn.statically.io/gh/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
+      ;;
+    3)
+      LINUX_AUTOMATIC_UPDATE_URL="https://cdn.jsdelivr.net/gh/complexorganizations/linux-automatic-updates/linux-automatic-updates.sh"
+      ;;
+    4)
+      LINUX_AUTOMATIC_UPDATE_URL="https://combinatronics.io/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
+      ;;
+    esac
+    curl ${LINUX_AUTOMATIC_UPDATE_URL} -o "${CURRENT_FILE_PATH}"
+    chmod +x "${CURRENT_FILE_PATH}"
   fi
 }
