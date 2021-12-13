@@ -45,6 +45,7 @@ function installing-system-requirements() {
         pkg install curl cronie coreutils
       elif [ "${CURRENT_DISTRO}" == "ol" ]; then
         dnf update -y
+        dnf install curl cronie coreutils -y
       fi
     fi
   else
