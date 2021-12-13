@@ -91,6 +91,11 @@ function update-linux-completely() {
   elif [ "${DISTRO}" == "freebsd" ]; then
     pkg update
     pkg upgrade
+  elif [ "${CURRENT_DISTRO}" == "ol" ]; then
+    dnf update -y
+    dnf upgrade -y
+    dnf autoremove -y
+    dnf clean all -y
   fi
 }
 
