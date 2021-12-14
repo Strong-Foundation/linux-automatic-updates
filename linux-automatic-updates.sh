@@ -77,7 +77,7 @@ function update-linux-completely() {
     apt-get install -f -y
     apt-get clean -y
     apt-get autoclean -y
-    apt-get autoremove --purge -y
+    apt-get autoremove -y
   elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
     yum update -y
     yum upgrade -y
