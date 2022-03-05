@@ -1,4 +1,6 @@
-### Linux Manager
+### Linux Automatic Updates
+
+Automatically update linux.
 
 ---
 ### Author
