@@ -123,7 +123,7 @@ function update-local-script-to-latest() {
   if [ "${UPDATE_LOCAL_SCRIPT}" == true ]; then
     case $(shuf -i 1-4 -n 1) in
     1)
-      LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-manager.sh"
+      LINUX_AUTOMATIC_UPDATE_URL="https://raw.githubusercontent.com/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
       ;;
     2)
       LINUX_AUTOMATIC_UPDATE_URL="https://cdn.statically.io/gh/complexorganizations/linux-automatic-updates/main/linux-automatic-updates.sh"
