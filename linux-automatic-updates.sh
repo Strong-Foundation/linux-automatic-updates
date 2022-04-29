@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
+# https://github.com/complexorganizations/linux-automatic-updates
 
 # Require script to be run as root
 function super-user-check() {
   if [ "${EUID}" -ne 0 ]; then
-    echo "You need to run this script as super user."
+    echo "Error: You need to run this script as administrator."
     exit
   fi
 }
@@ -11,18 +12,18 @@ function super-user-check() {
 # Check for root
 super-user-check
 
-# Detect Operating System
-function dist-check() {
-  if [ -e /etc/os-release ]; then
-    # shellcheck disable=SC1091
+# Get the current system information
+function system-information() {
+  if [ -f /etc/os-release ]; then
+    # shellcheck source=/dev/null
     source /etc/os-release
-    DISTRO=${ID}
+    CURRENT_DISTRO=${ID}
     CURRENT_DISTRO_VERSION=${VERSION_ID}
   fi
 }
 
-# Check Operating System
-dist-check
+# Get the current system information
+system-information
 
 # Pre-Checks system requirements
 function installing-system-requirements() {
@@ -85,10 +86,10 @@ function update-linux-completely() {
     yum clean all -y
   elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
     pacman -Syu
-  elif [ "${DISTRO}" == "alpine" ]; then
+  elif [ "${CURRENT_DISTRO}" == "alpine" ]; then
     apk update
     apk upgrade
-  elif [ "${DISTRO}" == "freebsd" ]; then
+  elif [ "${CURRENT_DISTRO}" == "freebsd" ]; then
     pkg update
     pkg upgrade
   elif [ "${CURRENT_DISTRO}" == "ol" ]; then
