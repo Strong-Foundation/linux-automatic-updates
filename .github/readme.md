@@ -18,6 +18,4 @@ Open Source Community
 
 ---
 ### License
-Copyright © [Prajwal](https://github.com/prajwal-koirala)
-
 This project is unlicensed.
