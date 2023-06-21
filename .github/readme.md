@@ -9,8 +9,6 @@ apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get clean
 
 ---
 ### Author
-* Name: Prajwal Koirala
-* Website: [prajwalkoirala.com](https://www.prajwalkoirala.com)
 
 ---	
 ### Credits
