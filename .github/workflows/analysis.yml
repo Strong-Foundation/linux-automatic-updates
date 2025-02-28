@@ -1,29 +1,33 @@
-# Name of the workflow
 name: ShellCheck OpenVPN Manager
 
 # Define the events that trigger the workflow
 on:
-  # Trigger the workflow on push events and pull request events for changes in .sh files
+  # Run the workflow when a .sh file is pushed to the repository
   push:
     paths:
       - "**.sh"
+  # Run the workflow when a pull request includes changes to .sh files
   pull_request:
     paths:
       - "**.sh"
-  # Allow manual triggering of the workflow
+  # Allow manual execution of the workflow
   workflow_dispatch:
+  # Schedule the workflow to run every 7 days at 00:00 UTC
+  schedule:
+    - cron: "0 0 */7 * *" # Runs at midnight UTC every 7 days
 
 # Define the jobs in the workflow
 jobs:
-  # Define a job named "shellcheck"
+  # Job to run ShellCheck on shell scripts
   shellcheck:
-    # The type of runner that the job will run on
+    # Use the latest Ubuntu runner
     runs-on: ubuntu-latest
-    # Define the steps in the job
+
     steps:
-      # Check out the repository code
+      # Step 1: Check out the repository code
       - name: Check out code
-        uses: actions/checkout@v4 # Use v2 of checkout action for better compatibility and features
-      # Run shellcheck on the shell scripts
+        uses: actions/checkout@v4
+
+      # Step 2: Run ShellCheck to lint shell scripts
       - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master # Use the master version of ShellCheck action
+        uses: ludeeus/action-shellcheck@master
