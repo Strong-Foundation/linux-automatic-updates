@@ -23,4 +23,4 @@ jobs:
         run: chmod +x $UPDATE_SCRIPT # Change file permissions to make the script executable
 
       - name: Run Update Script # Execute the update script
-        run: bash "$UPDATE_SCRIPT" # Run the script using the environment variable
+        run: sudo bash "$UPDATE_SCRIPT" # Run the script using the environment variable
