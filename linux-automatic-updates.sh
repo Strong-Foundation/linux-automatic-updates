@@ -75,6 +75,58 @@ function update_linux_completely() {
 # Completely update linux
 update_linux_completely
 
+# function check different package managers
+function update_different_package_managers() {
+  # Check if the package manager is snap
+  if [ -x "$(command -v snap)" ]; then
+    snap refresh
+  fi
+  # Check if the package manager is flatpak
+  if [ -x "$(command -v flatpak)" ]; then
+    flatpak update -y
+  fi
+  # Check if the package manager is pip
+  if [ -x "$(command -v pip)" ]; then
+    pip install --upgrade pip
+  fi
+  # Check if the package manager is npm
+  if [ -x "$(command -v npm)" ]; then
+    npm update -g
+  fi
+  # Check if the package manager is yarn
+  if [ -x "$(command -v yarn)" ]; then
+    yarn global upgrade
+  fi
+  # Check if the package manager is composer
+  if [ -x "$(command -v composer)" ]; then
+    composer self-update
+  fi
+  # Check if the package manager is gem
+  if [ -x "$(command -v gem)" ]; then
+    gem update --system
+  fi
+  # Check if the package manager is go
+  if [ -x "$(command -v go)" ]; then
+    go get -u all
+  fi
+  # Check if the package manager is cargo
+  if [ -x "$(command -v cargo)" ]; then
+    cargo install-update -a
+  fi
+  # Check if the package manager is brew
+  if [ -x "$(command -v brew)" ]; then
+    brew update
+    brew upgrade
+  fi
+  # Check if the package manager is conda
+  if [ -x "$(command -v conda)" ]; then
+    conda update --all -y
+  fi
+}
+
+# Update different package managers
+update_different_package_managers
+
 # Function to setup auto updates on linux to update each day
 function setup_auto_updates() {
   if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ]; }; then
