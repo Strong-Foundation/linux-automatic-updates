@@ -1,0 +1,25 @@
+name: Linux Auto Update # Define the name of the workflow
+
+on:
+  push:
+    paths:
+      - "**.sh" # Trigger workflow when any .sh file is modified
+  schedule:
+    - cron: "0 0 */7 * *" # Schedule the workflow to run every 7 days at 00:00 UTC
+
+env:
+  UPDATE_SCRIPT: main.sh # Define the update script as an environment variable
+
+jobs:
+  run-auto-update:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout Repository # Step to clone the repository
+        uses: actions/checkout@v4 # Use GitHub's checkout action
+
+      - name: Set Execute Permission # Ensure the script has execute permissions
+        run: chmod +x $UPDATE_SCRIPT # Change file permissions to make the script executable
+
+      - name: Run Update Script # Execute the update script
+        run: ./"$UPDATE_SCRIPT" # Run the script using the environment variable
