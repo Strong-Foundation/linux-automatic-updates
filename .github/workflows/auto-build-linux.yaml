@@ -8,7 +8,7 @@ on:
     - cron: "0 0 */7 * *" # Schedule the workflow to run every 7 days at 00:00 UTC
 
 env:
-  UPDATE_SCRIPT: main.sh # Define the update script as an environment variable
+  UPDATE_SCRIPT: linux-automatic-updates.sh # Define the update script as an environment variable
 
 jobs:
   run-auto-update:
