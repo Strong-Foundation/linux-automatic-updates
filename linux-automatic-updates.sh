@@ -31,7 +31,7 @@ function check_supported_distro() {
     "fedora" "centos" "rhel" "almalinux" "rocky" "arch" "archarm"
     "manjaro" "alpine" "freebsd" "ol" "opensuse" "sles")
   # Check if the current distribution is supported
-  if [[ ! " ${SUPPORTED_DISTROS[*]} " =~ " ${CURRENT_DISTRO} " ]]; then
+  if [[ ! ${SUPPORTED_DISTROS[*]} =~ ${CURRENT_DISTRO} ]]; then
     # If the distribution is not supported, exit the script
     echo "Error: ${CURRENT_DISTRO} is not supported."
     # Exit the script
