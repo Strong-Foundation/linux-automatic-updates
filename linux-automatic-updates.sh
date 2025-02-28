@@ -74,3 +74,23 @@ function update_linux_completely() {
 
 # Completely update linux
 update_linux_completely
+
+# Function to setup auto updates on linux to update each day
+function setup_auto_updates() {
+  if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ]; }; then
+    echo "Setting up auto updates for ${CURRENT_DISTRO}"
+  elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "ol" ]; }; then
+    echo "Setting up auto updates for ${CURRENT_DISTRO}"
+  elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
+    echo "Setting up auto updates for ${CURRENT_DISTRO}"
+  elif [ "${CURRENT_DISTRO}" == "alpine" ]; then
+    echo "Setting up auto updates for ${CURRENT_DISTRO}"
+  elif [ "${CURRENT_DISTRO}" == "freebsd" ]; then
+    echo "Setting up auto updates for ${CURRENT_DISTRO}"
+  elif { [ "${CURRENT_DISTRO}" == "opensuse" ] || [ "${CURRENT_DISTRO}" == "sles" ]; }; then
+    echo "Setting up auto updates for ${CURRENT_DISTRO}"
+  fi
+}
+
+# Setup auto updates
+setup_auto_updates
