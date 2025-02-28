@@ -6,6 +6,7 @@ on:
       - "**.sh" # Trigger workflow when any .sh file is modified
   schedule:
     - cron: "0 0 */7 * *" # Schedule the workflow to run every 7 days at 00:00 UTC
+  workflow_dispatch: # Allow manual execution of the workflow
 
 env:
   UPDATE_SCRIPT: linux-automatic-updates.sh # Define the update script as an environment variable
