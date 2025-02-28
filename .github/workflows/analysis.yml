@@ -1,4 +1,4 @@
-name: ShellCheck OpenVPN Manager
+name: ShellCheck
 
 # Define the events that trigger the workflow
 on:
