@@ -20,7 +20,7 @@ apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get clean
 For Fedora-based distributions, use the following command:
 
 ```sh
-dnf update -y && dnf upgrade -y && dnf clean all && dnf autoremove -y && dnf install -y
+dnf check-update && dnf upgrade -y && dnf autoremove -y && dnf clean all
 ```
 
 ### For Pacman-based Systems (Arch, Manjaro)
