@@ -48,12 +48,6 @@ function installing_system_requirements() {
       elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "amzn" ]; }; then
         # For Red Hat-based distributions, check for updates and install required packages
         yum check-update
-        if { [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
-          # Install necessary packages for AlmaLinux
-          yum install epel-release elrepo-release -y
-        else
-          yum install epel-release elrepo-release -y --skip-unavailable
-        fi
         # Install necessary packages for Red Hat-based distributions
         yum install curl coreutils -y --allowerasing
       elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
@@ -160,6 +154,7 @@ function setup_auto_updates() {
     apt-get install -f -y
   elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "amzn" ]; }; then
     yum check-update
+    yum makecache -y
     yum upgrade -y --allowerasing
     yum clean all -y
     yum autoremove -y
