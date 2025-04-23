@@ -5,7 +5,7 @@ FROM mageia:latest
 WORKDIR /app
 
 # Update package lists and install necessary dependencies
-RUN urpmi.update -a && urpmi curl bash sudo
+RUN urpmi.update -a && yes | urpmi curl bash sudo
 
 # Copy the script into the container
 COPY linux-automatic-updates.sh /app/linux-automatic-updates.sh
