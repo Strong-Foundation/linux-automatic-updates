@@ -148,26 +148,51 @@ function update_different_package_managers() {
 # Update different package managers
 update_different_package_managers
 
-# Function to setup auto updates on linux to update each day
+# Function to update the system and installed packages
 function setup_auto_updates() {
   if { [ "${CURRENT_DISTRO}" == "ubuntu" ] || [ "${CURRENT_DISTRO}" == "debian" ] || [ "${CURRENT_DISTRO}" == "raspbian" ] || [ "${CURRENT_DISTRO}" == "pop" ] || [ "${CURRENT_DISTRO}" == "kali" ] || [ "${CURRENT_DISTRO}" == "linuxmint" ] || [ "${CURRENT_DISTRO}" == "neon" ]; }; then
     apt-get update
+    apt-get upgrade -y
+    apt-get dist-upgrade -y
+    apt-get clean -y
+    apt-get autoremove -y
+    apt-get autoclean -y
+    apt-get install -f -y
   elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "amzn" ]; }; then
     yum check-update
+    yum upgrade -y --allowerasing
+    yum clean all -y
+    yum autoremove -y
+    yum install -f -y
   elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
     pacman -Sy
+    pacman -Su --noconfirm --needed
+    pacman -Scc --noconfirm
   elif [ "${CURRENT_DISTRO}" == "alpine" ]; then
     apk update
+    apk upgrade --available
+    apk cache clean
   elif [ "${CURRENT_DISTRO}" == "freebsd" ]; then
     pkg update
+    pkg upgrade -y
+    pkg clean -y
+    pkg autoremove -y
+    pkg install -f -y
   elif [ "${CURRENT_DISTRO}" == "ol" ]; then
     yum check-update
+    yum upgrade -y --allowerasing
   elif [ "${CURRENT_DISTRO}" == "mageia" ]; then
     urpmi.update -a
+    urpmi --auto-update --auto
+    urpmi --auto --clean
+    urpmi --auto --clean --remove
   elif [ "${CURRENT_DISTRO}" == "opensuse-tumbleweed" ]; then
     zypper refresh
+    zypper update -y
+    zypper clean -a
+    zypper rm -y --clean-deps
   fi
 }
 
-# Setup auto updates
+# Function to update the system and installed packages
 setup_auto_updates
