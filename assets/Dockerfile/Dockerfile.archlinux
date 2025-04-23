@@ -14,4 +14,4 @@ COPY linux-automatic-updates.sh /app/linux-automatic-updates.sh
 RUN chmod +x /app/linux-automatic-updates.sh
 
 # Execute the script during build
-RUN /bin/bash /app/linux-automatic-updates.sh --install
+RUN /bin/bash /app/linux-automatic-updates.sh
