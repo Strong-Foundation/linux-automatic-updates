@@ -4,6 +4,9 @@ FROM mageia:latest
 # Set the working directory inside the container
 WORKDIR /app
 
+# Remove existing source packages and add the Mageia 9 repository
+RUN urpmi.removemedia -a && urpmi.addmedia --distrib --mirrorlist "http://mirrors.mageia.org/api/mageia.9.$(uname -m).list"
+
 # Update package lists and install necessary dependencies
 RUN urpmi.update -a && yes | urpmi curl bash sudo
 
