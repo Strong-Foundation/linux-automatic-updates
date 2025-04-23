@@ -164,7 +164,7 @@ function setup_auto_updates() {
     yum upgrade -y --allowerasing
     yum clean all -y
     yum autoremove -y
-    if { [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
+    if { [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "amzn" ]; }; then
       yum distro-sync -y
     else
       yum install -f -y
