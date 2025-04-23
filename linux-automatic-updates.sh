@@ -195,7 +195,6 @@ function setup_auto_updates() {
     zypper refresh
     zypper update -y
     zypper clean -a
-    zypper rm -y --clean-deps
   fi
 }
 
