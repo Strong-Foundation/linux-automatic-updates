@@ -48,6 +48,12 @@ function installing_system_requirements() {
       elif { [ "${CURRENT_DISTRO}" == "fedora" ] || [ "${CURRENT_DISTRO}" == "centos" ] || [ "${CURRENT_DISTRO}" == "rhel" ] || [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ] || [ "${CURRENT_DISTRO}" == "amzn" ]; }; then
         # For Red Hat-based distributions, check for updates and install required packages
         yum check-update
+        if { [ "${CURRENT_DISTRO}" == "almalinux" ] || [ "${CURRENT_DISTRO}" == "rocky" ]; }; then
+          # Install necessary packages for AlmaLinux
+          yum install epel-release elrepo-release -y
+        else
+          yum install epel-release elrepo-release -y --skip-unavailable
+        fi
         # Install necessary packages for Red Hat-based distributions
         yum install curl coreutils -y --allowerasing
       elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
@@ -158,7 +164,11 @@ function setup_auto_updates() {
     yum upgrade -y --allowerasing
     yum clean all -y
     yum autoremove -y
-    yum install -f -y
+    if [ "${CURRENT_DISTRO}" == "almalinux" ]; then
+      yum distro-sync -y
+    else
+      yum install -f -y
+    fi
   elif { [ "${CURRENT_DISTRO}" == "arch" ] || [ "${CURRENT_DISTRO}" == "archarm" ] || [ "${CURRENT_DISTRO}" == "manjaro" ]; }; then
     pacman -Sy
     pacman -Su --noconfirm --needed
